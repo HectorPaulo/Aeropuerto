@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://aeropuertolasalle-f1af9eaa4f6d.herokuapp.com/";
+const API_URL = "https://aeropuertolasalle-f1af9eaa4f6d.herokuapp.com/api/tripulacion";
 
 const TripulacionService={
     createPiloto:async (piloto) => {
