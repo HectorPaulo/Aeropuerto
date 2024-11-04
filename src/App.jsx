@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <div>
-        No se
+        PRUEBA YO
       </div>
     </>
   )
