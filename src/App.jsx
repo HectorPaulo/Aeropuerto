@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <div>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor placeat omnis quaerat nulla facilis dolorem, autem earum! Aspernatur, quidem laboriosam dolore fugiat maxime cupiditate sint recusandae id dolorem, rem expedita!
+        No se
       </div>
     </>
   )
