@@ -30,15 +30,15 @@ const TripulacionService={
             throw error;
           }
     },
-    mostrarTripulacion:async () => {
-        try {
-            const response = await axios.get(`${API_URL }/all`);
-            return response.data;
-          } catch (error) {
-            console.error('Error fetching clientes:', error);
-            throw error;
-          }
-    }
+    mostrarTripulacion: async () => {
+      try {
+          const response = await axios.get(`${API_URL}/all`);
+          return response.data;
+      } catch (error) {
+          console.error('Error fetching tripulacion:', error);
+          throw error;
+      }
+  }
 };
 export default TripulacionService;
 

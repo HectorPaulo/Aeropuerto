@@ -1,0 +1,23 @@
+.container {
+    padding: 20px;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.tripulacion-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.tripulacion-table th, .tripulacion-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.tripulacion-table th {
+    background-color: #f2f2f2;
+}
