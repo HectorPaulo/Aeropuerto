@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 // import { terminales } from './TerminalComponent'; // Comentado para evitar error mientras el archivo no existe
 
 function RegistroVuelos() {
