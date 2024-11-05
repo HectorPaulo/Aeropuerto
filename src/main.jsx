@@ -5,6 +5,7 @@ import App from './App.jsx'
 import {AgregarCopiloto} from './pages/agregarCopiloto.jsx'
 import {AgregarPiloto} from './pages/agregarPiloto.jsx'
 import { AgregarSobrecargo } from './pages/agregarSobrecargo.jsx'
+import { MostrarTripulacion } from './pages/mostrarTripulacion.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/agregar-copiloto" element={<AgregarCopiloto />} />
         <Route path="/agregar-piloto" element={<AgregarPiloto />} />
         <Route path="/agregar-sobrecargo" element={<AgregarSobrecargo />} />
+        <Route path="/mostrar-tripulacion" element={<MostrarTripulacion />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

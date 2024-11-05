@@ -3,7 +3,7 @@ import TripulacionService from "../services/TripulacionService";
 import './agregarSobrecargo.css';
 
 export const AgregarSobrecargo = () => {
-    const [piloto, setPiloto] = useState({
+    const [sobrecargo, setSobrecargo] = useState({
       antiguedad: "",
       turno: "",
       horasVuelo: "",
@@ -11,15 +11,13 @@ export const AgregarSobrecargo = () => {
       apellido: "",
       fechaNac: "",
       genero: "",
-      rango: "",
-      licencia: "",
-      tipoAeronaves: "avion",
-      saludMental: ""
+      idiomas: "",
+      certificados: "",
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setPiloto((prevState) => ({
+        setSobrecargo((prevState) => ({
             ...prevState,
             [name]: value
         }));
@@ -27,15 +25,15 @@ export const AgregarSobrecargo = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Evita la recarga de página al enviar el formulario
-        console.log("Formulario enviado:", piloto); // Log para verificar el envío
+        console.log("Formulario enviado:", sobrecargo); // Log para verificar el envío
 
         try {
-            const response = await TripulacionService.createPiloto(piloto);
-            console.log("Piloto creado con éxito:", response);
-            alert("Piloto creado exitosamente"); // Mensaje de éxito
+            const response = await TripulacionService.createSobrecargo(sobrecargo);
+            console.log("Sobrecargo creado con éxito:", response);
+            alert("Sobrecargo creado exitosamente"); // Mensaje de éxito
         } catch (error) {
-            console.error("Error al crear piloto:", error);
-            alert("Hubo un error al crear el piloto"); // Mensaje de error
+            console.error("Error al crear Sobrecargo:", error);
+            alert("Hubo un error al crear el Sobrecargo"); // Mensaje de error
         }
     };
 
@@ -43,7 +41,7 @@ export const AgregarSobrecargo = () => {
       <div className="container">
         <header className="header">
         </header>
-        <h1>Agregar Piloto</h1>
+        <h1>Agregar Sobrecargo</h1>
         <form className="form" onSubmit={handleSubmit}>
           <h2>Datos Personales</h2>
           <div className="form-group">
@@ -51,7 +49,7 @@ export const AgregarSobrecargo = () => {
             <input
               type="text"
               name="nombre"
-              value={piloto.nombre}
+              value={sobrecargo.nombre}
               onChange={handleChange}
               onKeyPress={(e) => {
                 if (/\d/.test(e.key)) {
@@ -63,7 +61,7 @@ export const AgregarSobrecargo = () => {
             <input
               type="text"
               name="apellido"
-              value={piloto.apellido}
+              value={sobrecargo.apellido}
               onChange={handleChange}
               onKeyPress={(e) => {
                 if (/\d/.test(e.key)) {
@@ -72,7 +70,7 @@ export const AgregarSobrecargo = () => {
               }}
             />
             <label>Género:</label>
-            <select name="genero" value={piloto.genero} onChange={handleChange}>
+            <select name="genero" value={sobrecargo.genero} onChange={handleChange}>
               <option value="">Seleccione</option>
               <option value="Masculino">Masculino</option>
               <option value="Femenino">Femenino</option>
@@ -81,7 +79,7 @@ export const AgregarSobrecargo = () => {
             <input
               type="date"
               name="fechaNac"
-              value={piloto.fechaNac}
+              value={sobrecargo.fechaNac}
               onChange={handleChange}
               min="1900-01-01"
 
@@ -90,22 +88,65 @@ export const AgregarSobrecargo = () => {
     
           <h2>Datos Laborales</h2>
           <div className="form-group">
-            <label>Tipos Aeronaves:</label>
-            <input type="text" name="tiposAeronaves" value={piloto.tipoAeronaves} onChange={handleChange} />
-            <label>Salud Mental:</label>
-            <input type="text" name="saludMental" value={piloto.saludMental} onChange={handleChange} />
-            <label>Rango:</label>
-            <input type="text" name="rango" value={piloto.rango} onChange={handleChange} />
-            <label>Licencia:</label>
-            <input type="text" name="licencia" value={piloto.licencia} onChange={handleChange} />
+          <label>Idiomas:</label>
+<select
+  name="idiomas"
+  multiple
+  value={sobrecargo.idiomas}
+  onChange={(e) => {
+    const options = e.target.options;
+    const values = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        values.push(options[i].value);
+      }
+    }
+    setSobrecargo({
+      ...sobrecargo,
+      idiomas: values,
+    });
+  }}
+>
+  <option value="Ingles">Inglés</option>
+  <option value="Frances">Francés</option>
+  <option value="Español">Español</option>
+  <option value="Chino">Chino</option>
+  <option value="Japones">Japones</option>
+  <option value="Alemán">Alemán</option>
+</select>
+
+<label>Certificados:</label>
+<select
+  name="certificados"
+  multiple
+  value={sobrecargo.certificados}
+  onChange={(e) => {
+    const options = e.target.options;
+    const values = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        values.push(options[i].value);
+      }
+    }
+    setSobrecargo({
+      ...sobrecargo,
+      certificados: values,
+    });
+  }}
+>
+  <option value="Paramédico">Paramédico</option>
+  <option value="Ayuda Especial">AyudaEspecial</option>
+  <option value="Veterinaria">Veterinaria</option>
+  <option value="Personas Mayores">Personas Mayores</option>
+</select>
             <label>Antigüedad (años):</label>
-            <input type="number" name="antiguedad" value={piloto.antiguedad} onChange={handleChange} />
+            <input type="number" name="antiguedad" value={sobrecargo.antiguedad} onChange={handleChange} />
             <label>Horas de vuelo:</label>
-            <input type="number" name="horasVuelo" value={piloto.horasVuelo} onChange={handleChange} />
+            <input type="number" name="horasVuelo" value={sobrecargo.horasVuelo} onChange={handleChange} />
             <label>Turno:</label>
-            <input type="text" name="turno" value={piloto.turno} onChange={handleChange} />
+            <input type="text" name="turno" value={sobrecargo.turno} onChange={handleChange} />
           </div>
-          <button type="submit" className="submit-button">Agregar Piloto</button>
+          <button type="submit" className="submit-button">Agregar Sobrecargo</button>
         </form>
       </div>
     );

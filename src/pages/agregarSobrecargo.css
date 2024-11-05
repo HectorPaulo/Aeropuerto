@@ -1,0 +1,78 @@
+/* Estructura general */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e7f4fa;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    background-color: #004d61;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  
+  .header button {
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  h1 {
+    color: #004d61;
+    margin-top: 1rem;
+  }
+  
+  h2 {
+    color: #004d61;
+    margin: 0.5rem 0;
+  }
+  
+  /* Estilo del formulario */
+  .form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .form-group label {
+    color: #004d61;
+    font-weight: bold;
+  }
+  
+  .form-group input {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Estilo del botón */
+  .submit-button {
+    background-color: #f0a500;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .submit-button:hover {
+    background-color: #d18c00;
+  }
+  
