@@ -1,13 +1,11 @@
-import { useState } from 'react'
-import viteLogo from '/vite.svg'
+import AeropuertoApp from "./components/AeropuertoApp"
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
       <div>
-        
+        <AeropuertoApp></AeropuertoApp>
       </div>
     </>
   )
