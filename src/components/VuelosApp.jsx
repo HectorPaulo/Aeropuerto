@@ -1,6 +1,7 @@
 import  { useState } from 'react';
 import RegistroVuelos from './registroVuelos';
 import ListarVuelos from './ListarVuelos';
+import ListarVuelosAeropuerto from './ListarVuelosAeropuerto';
 
 const VuelosApp = () => {
     const [updateList, setUpdateList] = useState(false);
@@ -13,6 +14,7 @@ const VuelosApp = () => {
         <div>
             <RegistroVuelos onAeropuertoAdded={handleVueloAdded} />
             <ListarVuelos key={updateList}/>
+            <ListarVuelosAeropuerto key={updateList}/>
         </div>
     );
 };
