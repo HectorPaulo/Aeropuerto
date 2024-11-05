@@ -4,17 +4,17 @@ import './agregarPiloto.css';
 
 export const AgregarPiloto = () => {
     const [piloto, setPiloto] = useState({
-        antiguedad: 2,
-        turno: "matutino",
-        horasVuelo: 12,
-        nombre: "",
-        apellido: "",
-        fechaNac: "",
-        genero: "hombre",
-        rango: "maximo",
-        licencia: "",
-        tipoAeronaves: "avion",
-        saludMental: "buena"
+      antiguedad: "",
+      turno: "",
+      horasVuelo: "",
+      nombre: "",
+      apellido: "",
+      fechaNac: "",
+      genero: "",
+      rango: "",
+      licencia: "",
+      tipoAeronaves: "avion",
+      saludMental: ""
     });
 
     const handleChange = (e) => {
@@ -40,43 +40,73 @@ export const AgregarPiloto = () => {
     };
 
     return (
-        <div className="container">
-          <header className="header">
-          </header>
-          <h1>Agregar Piloto</h1>
-          <form className="form" onSubmit={handleSubmit}>
-            <h2>Datos Personales</h2>
-            <div className="form-group">
-              <label>Nombre:</label>
-              <input type="text" name="nombre" value={piloto.nombre} onChange={handleChange} />
-              <label>Apellido:</label>
-              <input type="text" name="apellido" value={piloto.apellido} onChange={handleChange} />
-              <label>Género:</label>
-              <input type="text" name="genero" value={piloto.genero} onChange={handleChange} />
-              <label>Fecha de nacimiento:</label>
-              <input type="date" name="fechaNacimiento" value={piloto.fechaNacimiento} onChange={handleChange} />
-            </div>
+      <div className="container">
+        <header className="header">
+        </header>
+        <h1>Agregar Piloto</h1>
+        <form className="form" onSubmit={handleSubmit}>
+          <h2>Datos Personales</h2>
+          <div className="form-group">
+            <label>Nombre:</label>
+            <input
+              type="text"
+              name="nombre"
+              value={piloto.nombre}
+              onChange={handleChange}
+              onKeyPress={(e) => {
+                if (/\d/.test(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+            />
+            <label>Apellido:</label>
+            <input
+              type="text"
+              name="apellido"
+              value={piloto.apellido}
+              onChange={handleChange}
+              onKeyPress={(e) => {
+                if (/\d/.test(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+            />
+            <label>Género:</label>
+            <select name="genero" value={piloto.genero} onChange={handleChange}>
+              <option value="">Seleccione</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+            </select>
+            <label>Fecha de nacimiento:</label>
+            <input
+              type="date"
+              name="fechaNac"
+              value={piloto.fechaNac}
+              onChange={handleChange}
+              min="1900-01-01"
+
+            />
+          </div>
     
-            <h2>Datos Laborales</h2>
-            <div className="form-group">
-              <label>Tipos Aeronaves:</label>
-              <input type="text" name="tiposAeronaves" value={piloto.tipoAeronaves} onChange={handleChange} />
-              <label>Salud Mental:</label>
-              <input type="text" name="saludMental" value={piloto.saludMental} onChange={handleChange} />
-              <label>Rango:</label>
-              <input type="text" name="rango" value={piloto.rango} onChange={handleChange} />
-              <label>Licencia:</label>
-              <input type="text" name="licencia" value={piloto.licencia} onChange={handleChange} />
-              <label>Antigüedad:</label>
-              <input type="text" name="antiguedad" value={piloto.antiguedad} onChange={handleChange} />
-              <label>Horas de vuelo:</label>
-              <input type="text" name="horasVuelo" value={piloto.horasVuelo} onChange={handleChange} />
-              <label>Turno:</label>
-              <input type="text" name="turno" value={piloto.turno} onChange={handleChange} />
-            </div>
-    
-            <button type="submit" className="submit-button">Agregar Sobrecargo</button>
-          </form>
-        </div>
-      );
+          <h2>Datos Laborales</h2>
+          <div className="form-group">
+            <label>Tipos Aeronaves:</label>
+            <input type="text" name="tiposAeronaves" value={piloto.tipoAeronaves} onChange={handleChange} />
+            <label>Salud Mental:</label>
+            <input type="text" name="saludMental" value={piloto.saludMental} onChange={handleChange} />
+            <label>Rango:</label>
+            <input type="text" name="rango" value={piloto.rango} onChange={handleChange} />
+            <label>Licencia:</label>
+            <input type="text" name="licencia" value={piloto.licencia} onChange={handleChange} />
+            <label>Antigüedad (años):</label>
+            <input type="number" name="antiguedad" value={piloto.antiguedad} onChange={handleChange} />
+            <label>Horas de vuelo:</label>
+            <input type="number" name="horasVuelo" value={piloto.horasVuelo} onChange={handleChange} />
+            <label>Turno:</label>
+            <input type="text" name="turno" value={piloto.turno} onChange={handleChange} />
+          </div>
+          <button type="submit" className="submit-button">Agregar Piloto</button>
+        </form>
+      </div>
+    );
 };

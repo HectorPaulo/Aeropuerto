@@ -2,23 +2,21 @@ import React, { useState } from 'react';
 import TripulacionService from '../services/TripulacionService';
 import './agregarCopiloto.css';
 export const AgregarCopiloto= () => {
-    const [copiloto, setCocopiloto] = useState({
-        antiguedad: 2,
-        turno: "matutino",
-        horasVuelo: 12,
+    const [copiloto, setCopiloto] = useState({
+        antiguedad: "",
+        turno: "",
+        horasVuelo: "",
         nombre: "",
         apellido: "",
         fechaNac: "",
-        genero: "hombre",
-        rango: "maximo",
-        licencia: "",
-        tipoAeronaves: "avion",
-        saludMental: "buena"
+        genero: "",
+        rango: "",
+        tiempoRestantePiloto:""
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setCocopiloto((prevState) => ({
+        setCopiloto((prevState) => ({
             ...prevState,
             [name]: value
         }));
@@ -29,7 +27,7 @@ export const AgregarCopiloto= () => {
         console.log("Formulario enviado:", copiloto); // Log para verificar el envío
 
         try {
-            const response = await TripulacionService.createcopiloto(copiloto);
+            const response = await TripulacionService.createCopiloto(copiloto);
             console.log("copiloto creado con éxito:", response);
             alert("copiloto creado exitosamente"); // Mensaje de éxito
         } catch (error) {
@@ -39,43 +37,68 @@ export const AgregarCopiloto= () => {
     };
 
     return (
-        <div className="container">
-          <header className="header">
-          </header>
-          <h1>Agregar copiloto</h1>
-          <form className="form" onSubmit={handleSubmit}>
-            <h2>Datos Personales</h2>
-            <div className="form-group">
-              <label>Nombre:</label>
-              <input type="text" name="nombre" value={copiloto.nombre} onChange={handleChange} />
-              <label>Apellido:</label>
-              <input type="text" name="apellido" value={copiloto.apellido} onChange={handleChange} />
-              <label>Género:</label>
-              <input type="text" name="genero" value={copiloto.genero} onChange={handleChange} />
-              <label>Fecha de nacimiento:</label>
-              <input type="date" name="fechaNacimiento" value={copiloto.fechaNacimiento} onChange={handleChange} />
-            </div>
+      <div className="container">
+        <header className="header">
+        </header>
+        <h1>Agregar copiloto</h1>
+        <form className="form" onSubmit={handleSubmit}>
+          <h2>Datos Personales</h2>
+          <div className="form-group">
+            <label>Nombre:</label>
+            <input
+              type="text"
+              name="nombre"
+              value={copiloto.nombre}
+              onChange={handleChange}
+              onKeyPress={(e) => {
+                if (/\d/.test(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+            />
+            <label>Apellido:</label>
+            <input
+              type="text"
+              name="apellido"
+              value={copiloto.apellido}
+              onChange={handleChange}
+              onKeyPress={(e) => {
+                if (/\d/.test(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+            />
+            <label>Género:</label>
+            <select name="genero" value={copiloto.genero} onChange={handleChange}>
+              <option value="">Seleccione</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+            </select>
+            <label>Fecha de nacimiento:</label>
+            <input
+              type="date"
+              name="fechaNac"
+              value={copiloto.fechaNac}
+              onChange={handleChange}
+              min="1900-01-01"
+            />
+          </div>
     
-            <h2>Datos Laborales</h2>
-            <div className="form-group">
-              <label>Tipos Aeronaves:</label>
-              <input type="text" name="tiposAeronaves" value={copiloto.tipoAeronaves} onChange={handleChange} />
-              <label>Salud Mental:</label>
-              <input type="text" name="saludMental" value={copiloto.saludMental} onChange={handleChange} />
-              <label>Rango:</label>
-              <input type="text" name="rango" value={copiloto.rango} onChange={handleChange} />
-              <label>Licencia:</label>
-              <input type="text" name="licencia" value={copiloto.licencia} onChange={handleChange} />
-              <label>Antigüedad:</label>
-              <input type="text" name="antiguedad" value={copiloto.antiguedad} onChange={handleChange} />
-              <label>Horas de vuelo:</label>
-              <input type="text" name="horasVuelo" value={copiloto.horasVuelo} onChange={handleChange} />
-              <label>Turno:</label>
-              <input type="text" name="turno" value={copiloto.turno} onChange={handleChange} />
-            </div>
-    
-            <button type="submit" className="submit-button">Agregar Sobrecargo</button>
-          </form>
-        </div>
-      );
+          <h2>Datos Laborales</h2>
+          <div className="form-group">
+            <label>Rango:</label>
+            <input type="text" name="rango" value={copiloto.rango} onChange={handleChange} />
+            <label>Antigüedad (Años):</label>
+            <input type="number" name="antiguedad" value={copiloto.antiguedad} onChange={handleChange} />
+            <label>Horas de vuelo:</label>
+            <input type="number" name="horasVuelo" value={copiloto.horasVuelo} onChange={handleChange} />
+            <label>Turno:</label>
+            <input type="text" name="turno" value={copiloto.turno} onChange={handleChange} />
+            <label>Tiempo Restante (años):</label>
+            <input type="number" name="tiempoRestantePiloto" value={copiloto.tiempoRestantePiloto} onChange={handleChange} />
+          </div>
+          <button type="submit" className="submit-button">Agregar copiloto</button>
+        </form>
+      </div>
+    );
 };
