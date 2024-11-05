@@ -10,21 +10,25 @@ const ListarVuelosAeropuerto = () => {
             const response = await getVuelos();
 
             // Verifica que response.data es un array y organiza los vuelos por terminal
-            const vuelosAgrupados = Array.isArray(response.data)
-                ? response.data.reduce((acc, vuelo) => {
-                      const terminal = vuelo.terminal; // Suponiendo que cada vuelo tiene una propiedad 'terminal'
-                      if (!acc[terminal]) {
-                          acc[terminal] = [];
-                      }
-                      acc[terminal].push(vuelo);
-                      return acc;
-                  }, {})
-                : {};
+            if (!Array.isArray(response.data) || response.data.length === 0) {
+                // Si no hay vuelos, establece un mensaje de error
+                throw new Error("No se encontraron vuelos registrados.");
+            }
+
+            const vuelosAgrupados = response.data.reduce((acc, vuelo) => {
+                const terminal = vuelo.claveTerminal; // Suponiendo que cada vuelo tiene una propiedad 'claveTerminal'
+                if (!acc[terminal]) {
+                    acc[terminal] = [];
+                }
+                acc[terminal].push(vuelo);
+                return acc;
+            }, {});
 
             setVuelosAeropuerto(vuelosAgrupados);
+            setError(null); // Asegura que no haya mensajes de error si los datos son válidos
         } catch (error) {
             setError(error);
-            console.error('Error al obtener los vuelos', error);
+            console.error("Error al obtener los vuelos", error);
         }
     };
 
@@ -39,11 +43,11 @@ const ListarVuelosAeropuerto = () => {
                 <p>Error al obtener los vuelos: {error.message}</p>
             ) : (
                 Object.keys(vuelosAeropuerto).length > 0 ? (
-                    Object.keys(vuelosAeropuerto).map((terminal) => (
-                        <div key={terminal}>
-                            <h2>Terminal: {terminal}</h2>
+                    Object.keys(vuelosAeropuerto).map((claveTerminal) => (
+                        <div key={claveTerminal}>
+                            <h2>Terminal: {claveTerminal}</h2>
                             <ul>
-                                {vuelosAeropuerto[terminal].map((vuelo) => (
+                                {vuelosAeropuerto[claveTerminal].map((vuelo) => (
                                     <li key={vuelo.id}>
                                         <p>Origen: {vuelo.origen}</p>
                                         <p>Destino: {vuelo.destino}</p>
