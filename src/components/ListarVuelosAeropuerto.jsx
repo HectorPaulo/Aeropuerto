@@ -2,24 +2,26 @@ import { useEffect, useState } from "react";
 import { getVuelos } from "../services/ApiVuelo";
 
 const ListarVuelosAeropuerto = () => {
-    const [vuelosPorTerminal, setVuelosPorTerminal] = useState({});
+    const [vuelosAeropuerto, setVuelosAeropuerto] = useState({});
     const [error, setError] = useState(null);
 
     const fetchVuelos = async () => {
         try {
             const response = await getVuelos();
 
-            // Organiza los vuelos por terminal
-            const vuelosAgrupados = response.data.reduce((acc, vuelo) => {
-                const terminal = vuelo.terminal; // Suponiendo que cada vuelo tiene una propiedad 'terminal'
-                if (!acc[terminal]) {
-                    acc[terminal] = [];
-                }
-                acc[terminal].push(vuelo);
-                return acc;
-            }, {});
+            // Verifica que response.data es un array y organiza los vuelos por terminal
+            const vuelosAgrupados = Array.isArray(response.data)
+                ? response.data.reduce((acc, vuelo) => {
+                      const terminal = vuelo.terminal; // Suponiendo que cada vuelo tiene una propiedad 'terminal'
+                      if (!acc[terminal]) {
+                          acc[terminal] = [];
+                      }
+                      acc[terminal].push(vuelo);
+                      return acc;
+                  }, {})
+                : {};
 
-            setVuelosPorTerminal(vuelosAgrupados);
+            setVuelosAeropuerto(vuelosAgrupados);
         } catch (error) {
             setError(error);
             console.error('Error al obtener los vuelos', error);
@@ -32,27 +34,30 @@ const ListarVuelosAeropuerto = () => {
 
     return (
         <div>
-            <h1>Lista de Vuelos por Terminal</h1>
+            <h1>Lista de Vuelos por Aeropuerto</h1>
             {error ? (
                 <p>Error al obtener los vuelos: {error.message}</p>
             ) : (
-                Object.keys(vuelosPorTerminal).map((terminal) => (
-                    <div key={terminal}>
-                        <h2>Terminal: {terminal}</h2>
-                        <ul>
-                            {vuelosPorTerminal[terminal].map((vuelo) => (
-                                <div key={vuelo.id}>
-                                    <li>Origen: {vuelo.origen}</li>
-                                    <li>Destino: {vuelo.destino}</li>
-                                    <li>Duración: {vuelo.duracion}</li>
-                                    <li>Hora de Salida: {vuelo.horaSalida}</li>
-                                    <li>Hora de Llegada: {vuelo.horaLlegada}</li>
-                                    <br />
-                                </div>
-                            ))}
-                        </ul>
-                    </div>
-                ))
+                Object.keys(vuelosAeropuerto).length > 0 ? (
+                    Object.keys(vuelosAeropuerto).map((terminal) => (
+                        <div key={terminal}>
+                            <h2>Terminal: {terminal}</h2>
+                            <ul>
+                                {vuelosAeropuerto[terminal].map((vuelo) => (
+                                    <li key={vuelo.id}>
+                                        <p>Origen: {vuelo.origen}</p>
+                                        <p>Destino: {vuelo.destino}</p>
+                                        <p>Duración: {vuelo.duracion}</p>
+                                        <p>Hora de Salida: {vuelo.horaSalida}</p>
+                                        <p>Hora de Llegada: {vuelo.horaLlegada}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))
+                ) : (
+                    <p>No se encontraron vuelos.</p>
+                )
             )}
         </div>
     );
