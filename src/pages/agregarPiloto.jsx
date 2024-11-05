@@ -43,7 +43,7 @@ export const AgregarPiloto = () => {
         <div className="container">
           <header className="header">
           </header>
-          <h1>Agregar Sobrecargo</h1>
+          <h1>Agregar Piloto</h1>
           <form className="form" onSubmit={handleSubmit}>
             <h2>Datos Personales</h2>
             <div className="form-group">

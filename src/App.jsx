@@ -11,7 +11,8 @@ function App() {
   return (
     <>
       <div>
-        <button onClick={() => handleNavigation('/agregar-piloto')}>Listar Clientes</button>
+        <button onClick={() => handleNavigation('/agregar-piloto')}>Agregar Piloto</button>
+        <button onClick={() => handleNavigation('/agregar-copiloto')}>Agregar Copiloto</button>
       </div>
     </>
   )
