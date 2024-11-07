@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createAeropuerto } from '../services/http.aeropuerto';
+import './Styles.css';
 
 const AltaAeropuerto = ({ onAeropuertoAdded }) => {
     const [formData, setFormData] = useState({
@@ -29,18 +30,45 @@ const AltaAeropuerto = ({ onAeropuertoAdded }) => {
     };
 
     return (
-        <>
+        <div className="container">
             <h1>Alta Aeropuerto</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" value={formData.nombre} onChange={handleChange} />
-                <label htmlFor="numeroPistas">Numero de Pistas</label>
-                <input type="number" id="numeroPistas" name="numeroPistas" value={formData.numeroPistas} onChange={handleChange} />
-                <label htmlFor="tipoAvion">Tipo de aviones</label>
-                <input type="text" id="tipoAvion" name="tipoAvion" value={formData.tipoAvion} onChange={handleChange} />
-                <button type="submit">Enviar</button>
+            <form onSubmit={handleSubmit} className="form">
+                <div className="form-group">
+                    <label htmlFor="nombre">Nombre</label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        value={formData.nombre}
+                        onChange={handleChange}
+                        className="form-control"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="numeroPistas">Número de Pistas</label>
+                    <input
+                        type="number"
+                        id="numeroPistas"
+                        name="numeroPistas"
+                        value={formData.numeroPistas}
+                        onChange={handleChange}
+                        className="form-control"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="tipoAvion">Tipo de Aviones</label>
+                    <input
+                        type="text"
+                        id="tipoAvion"
+                        name="tipoAvion"
+                        value={formData.tipoAvion}
+                        onChange={handleChange}
+                        className="form-control"
+                    />
+                </div>
+                <button type="submit" className="btn">Enviar</button>
             </form>
-        </>
+        </div>
     );
 };
 
