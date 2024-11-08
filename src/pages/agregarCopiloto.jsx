@@ -23,18 +23,24 @@ export const AgregarCopiloto= () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Evita la recarga de página al enviar el formulario
-        console.log("Formulario enviado:", copiloto); // Log para verificar el envío
+      e.preventDefault();
 
-        try {
-            const response = await TripulacionService.createCopiloto(copiloto);
-            console.log("copiloto creado con éxito:", response);
-            alert("copiloto creado exitosamente"); // Mensaje de éxito
-        } catch (error) {
-            console.error("Error al crear copiloto:", error);
-            alert("Hubo un error al crear el copiloto"); // Mensaje de error
-        }
-    };
+      for (let key in copiloto) {
+          if (copiloto[key] === "" || copiloto[key] === null) {
+              alert("Por favor, completa todos los campos.");
+              return;
+          }
+      }
+
+      try {
+          const response = await TripulacionService.createCopiloto(copiloto);
+          console.log("Copiloto creado con éxito:", response);
+          alert("Copiloto creado exitosamente");
+      } catch (error) {
+          console.error("Error al crear copiloto:", error);
+          alert("Hubo un error al crear el copiloto");
+      }
+  };
 
     return (
       <div className="container">
