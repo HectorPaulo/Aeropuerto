@@ -109,12 +109,12 @@ export const AgregarCopiloto= () => {
               <div className="form-group">
                   <div>
                       <label>Rango:</label>
-                      <input
-                          type="text"
-                          name="rango"
-                          value={copiloto.rango}
-                          onChange={handleChange}
-                      />
+                      <select name="rango" value={copiloto.rango} onChange={handleChange}>
+                            <option value="">Seleccione</option>
+                            <option value="Un galon">Un galón</option>
+                            <option value="Dos galones">Dos galones</option>
+                            <option value="Tres galones">Tres galones</option>
+                        </select>
                   </div>
                   <div>
                       <label>Antigüedad (años):</label>
