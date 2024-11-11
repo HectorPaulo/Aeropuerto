@@ -1,178 +1,220 @@
 import { useState } from 'react';
 
 function RegistroVuelos() {
-const [flightData, setFlightData] = useState({
-        claveTerminal: '',
-        vehiculoAereo: '',
-        origen: '',
-        destino: '',
-        tripulacion: '',
-        duracion: '',
-        horaSalida: '',
-        horaLlegada: ''
-    });
-const [flights, setFlights] = useState([]); // Estado para almacenar los vuelos registrados
-const [showList, setShowList] = useState(false);
-const [error, setError] = useState(null); // Estado para almacenar el mensaje de error
+  const [flightData, setFlightData] = useState({
+    claveTerminal: '',
+    vehiculoAereo: '',
+    origen: '',
+    destino: '',
+    tripulacion: '',
+    duracion: '',
+    horaSalida: '',
+    horaLlegada: ''
+  });
+  const [flights, setFlights] = useState([]); // Estado para almacenar los vuelos registrados
+  const [showList, setShowList] = useState(false);
+  const [showListByAirport, setShowListByAirport] = useState(false); // Estado para manejar el listado por aeropuerto
+  const [error, setError] = useState(null); // Estado para almacenar el mensaje de error
 
-const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-        setFlightData({
-        ...flightData,
-        [name]: value
-        });
-    };
+    setFlightData({
+      ...flightData,
+      [name]: value
+    });
+  };
 
-const handleSubmit = (e) => {
-        e.preventDefault();
-        setFlights([...flights, flightData]); // Agregar el vuelo al listado
-        setFlightData({ // Limpiar el formulario después de enviar
-        claveTerminal: '',
-        vehiculoAereo: '',
-        origen: '',
-        destino: '',
-        tripulacion: '',
-        duracion: '',
-        horaSalida: '',
-        horaLlegada: ''
-        });
-        setError(null); // Limpiar cualquier mensaje de error previo
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFlights([...flights, flightData]); // Agregar el vuelo al listado
+    setFlightData({ // Limpiar el formulario después de enviar
+      claveTerminal: '',
+      vehiculoAereo: '',
+      origen: '',
+      destino: '',
+      tripulacion: '',
+      duracion: '',
+      horaSalida: '',
+      horaLlegada: ''
+    });
+    setError(null); // Limpiar cualquier mensaje de error previo
+  };
 
-const toggleList = () => {
-        setShowList(!showList);
-        // Ejemplo de simulación de error de obtención de datos
-        if (flights.length === 0) {
-        setError("Error al obtener los vuelos: Request failed with status code 404");
-        } else {
-        setError(null); // Limpiar el mensaje de error si hay vuelos
-        }
-    };
+  const toggleList = () => {
+    setShowList(!showList);
+    setError(flights.length === 0 ? "Error al obtener los vuelos: Request failed with status code 404" : null);
+  };
 
-return (
-        <div style={styles.container}>
-        <div style={styles.formContainer}>
-            <h2 style={styles.title}>Registro de Vuelo</h2>
-            <form onSubmit={handleSubmit} style={styles.form}>
-            <label style={styles.label}>
-                Clave Terminal:
-                <input
-                type="text"
-                name="claveTerminal"
-                value={flightData.claveTerminal}
-                onChange={handleChange}
-                style={styles.input}
-                />
-            </label>
-            <label style={styles.label}>
-                Vehículo Aéreo:
-                <input
-                type="text"
-                name="vehiculoAereo"
-                value={flightData.vehiculoAereo}
-                onChange={handleChange}
-                style={styles.input}
-                />
-            </label>
-            <label style={styles.label}>
-                Origen:
-                <input
-                type="text"
-                name="origen"
-                value={flightData.origen}
-                onChange={handleChange}
-                style={styles.input}
-                />
-            </label>
-            <label style={styles.label}>
-                Destino:
-                <input
-                type="text"
-                name="destino"
-                value={flightData.destino}
-                onChange={handleChange}
-                style={styles.input}
-                />
-            </label>
-            <label style={styles.label}>
-                Tripulación:
-                <input
-                type="text"
-                name="tripulacion"
-                value={flightData.tripulacion}
-                onChange={handleChange}
-                style={styles.input}
-                />
-            </label>
-            <label style={styles.label}>
-                Duración:
-                <input
-                type="text"
-                name="duracion"
-                value={flightData.duracion}
-                onChange={handleChange}
-                style={styles.input}
-                />
-            </label>
-            <label style={styles.label}>
-                Hora Salida:
-                <input
-                type="time"
-                name="horaSalida"
-                value={flightData.horaSalida}
-                onChange={handleChange}
-                style={styles.input}
-                />
-            </label>
-            <label style={styles.label}>
-                Hora Llegada:
-                <input
-                type="time"
-                name="horaLlegada"
-                value={flightData.horaLlegada}
-                onChange={handleChange}
-                style={styles.input}
-                />
-            </label>
-            <div style={styles.buttonContainer}>
-                <button type="submit" style={styles.button}>Registrar</button>
-                <button type="button" onClick={toggleList} style={styles.buttonSecondary}>
-                {showList ? 'Ocultar Listado' : 'Ver Listado'}
-                </button>
-            </div>
-            </form>
+  const toggleListByAirport = () => {
+    setShowListByAirport(!showListByAirport);
+    setError(flights.length === 0 ? "Error al obtener los vuelos: Request failed with status code 404" : null);
+  };
+
+  // Función para agrupar vuelos por aeropuerto de origen
+  const groupFlightsByAirport = () => {
+    return flights.reduce((acc, flight) => {
+      (acc[flight.origen] = acc[flight.origen] || []).push(flight);
+      return acc;
+    }, {});
+  };
+
+  return (
+    <div style={styles.container}>
+      <div style={styles.formContainer}>
+        <h2 style={styles.title}>Registro de Vuelo</h2>
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <label style={styles.label}>
+            Clave Terminal:
+            <input
+              type="text"
+              name="claveTerminal"
+              value={flightData.claveTerminal}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+          <label style={styles.label}>
+            Vehículo Aéreo:
+            <input
+              type="text"
+              name="vehiculoAereo"
+              value={flightData.vehiculoAereo}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+          <label style={styles.label}>
+            Origen:
+            <input
+              type="text"
+              name="origen"
+              value={flightData.origen}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+          <label style={styles.label}>
+            Destino:
+            <input
+              type="text"
+              name="destino"
+              value={flightData.destino}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+          <label style={styles.label}>
+            Tripulación:
+            <input
+              type="text"
+              name="tripulacion"
+              value={flightData.tripulacion}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+          <label style={styles.label}>
+            Duración:
+            <input
+              type="text"
+              name="duracion"
+              value={flightData.duracion}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+          <label style={styles.label}>
+            Hora Salida:
+            <input
+              type="time"
+              name="horaSalida"
+              value={flightData.horaSalida}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+          <label style={styles.label}>
+            Hora Llegada:
+            <input
+              type="time"
+              name="horaLlegada"
+              value={flightData.horaLlegada}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+          <div style={styles.buttonContainer}>
+            <button type="submit" style={styles.button}>Registrar</button>
+            <button type="button" onClick={toggleList} style={styles.buttonSecondary}>
+              {showList ? 'Ocultar Listado' : 'Ver Listado'}
+            </button>
+            <button type="button" onClick={toggleListByAirport} style={styles.buttonSecondary}>
+              {showListByAirport ? 'Ocultar por Aeropuerto' : 'Listar por Aeropuerto'}
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      {showList && (
+        <div style={styles.listContainer}>
+          <h3>Lista de Vuelos</h3>
+          {error ? (
+            <p style={styles.error}>{error}</p>
+          ) : (
+            <ul style={styles.list}>
+              {flights.length === 0 ? (
+                <li style={styles.listItem}>No hay vuelos registrados</li>
+              ) : (
+                flights.map((flight, index) => (
+                  <li key={index} style={styles.listItem}>
+                    <strong>Clave Terminal:</strong> {flight.claveTerminal} | 
+                    <strong> Vehículo Aéreo:</strong> {flight.vehiculoAereo} | 
+                    <strong> Origen:</strong> {flight.origen} | 
+                    <strong> Destino:</strong> {flight.destino} | 
+                    <strong> Tripulación:</strong> {flight.tripulacion} | 
+                    <strong> Duración:</strong> {flight.duracion} | 
+                    <strong> Hora Salida:</strong> {flight.horaSalida} | 
+                    <strong> Hora Llegada:</strong> {flight.horaLlegada}
+                  </li>
+                ))
+              )}
+            </ul>
+          )}
         </div>
-        
-        {showList && (
-            <div style={styles.listContainer}>
-            <h3>Lista de Vuelos</h3>
-            {error ? (
-                <p style={styles.error}>{error}</p>
-            ) : (
-                <ul style={styles.list}>
-                {flights.length === 0 ? (
-                    <li style={styles.listItem}>No hay vuelos registrados</li>
-                ) : (
-                    flights.map((flight, index) => (
-                    <li key={index} style={styles.listItem}>
+      )}
+
+      {showListByAirport && (
+        <div style={styles.listContainer}>
+          <h3>Vuelos por Aeropuerto (Origen)</h3>
+          {error ? (
+            <p style={styles.error}>{error}</p>
+          ) : (
+            <ul style={styles.list}>
+              {Object.entries(groupFlightsByAirport()).map(([origen, flights]) => (
+                <li key={origen} style={styles.listItem}>
+                  <h4>Aeropuerto: {origen}</h4>
+                  <ul>
+                    {flights.map((flight, index) => (
+                      <li key={index} style={styles.listItem}>
                         <strong>Clave Terminal:</strong> {flight.claveTerminal} | 
                         <strong> Vehículo Aéreo:</strong> {flight.vehiculoAereo} | 
-                        <strong> Origen:</strong> {flight.origen} | 
                         <strong> Destino:</strong> {flight.destino} | 
                         <strong> Tripulación:</strong> {flight.tripulacion} | 
                         <strong> Duración:</strong> {flight.duracion} | 
                         <strong> Hora Salida:</strong> {flight.horaSalida} | 
                         <strong> Hora Llegada:</strong> {flight.horaLlegada}
-                    </li>
-                    ))
-                )}
-                </ul>
-            )}
-            </div>
-        )}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
-    );
-    }
+      )}
+    </div>
+  );
+}
 
 const styles = {
   container: {
