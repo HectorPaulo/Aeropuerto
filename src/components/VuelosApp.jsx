@@ -1,22 +1,36 @@
 import { useState } from 'react';
 import RegistroVuelos from './registroVuelos';
-import ListarVuelos from './ListarVuelos';
-import ListarVuelosAeropuerto from './ListarVuelosAeropuerto';
+import ListarVuelosPorTerminal from './ListarVuelosPorTerminal';
+import ListarVuelosPorAeropuerto from './ListarVuelosPorAeropuerto';
 
 function VuelosApp() {
   const [activeComponent, setActiveComponent] = useState('registro');
+  const [flights, setFlights] = useState([]); // Estado para almacenar los vuelos registrados
+
+  const addFlight = (flightData) => {
+    setFlights([...flights, flightData]); // Añadir un nuevo vuelo a la lista de vuelos
+  };
 
   return (
     <div>
-      <nav>
-        <button onClick={() => setActiveComponent('registro')}>Registrar Vuelo</button>
-        <button onClick={() => setActiveComponent('listar')}>Ver Listado de Vuelos</button>
-        <button onClick={() => setActiveComponent('listarPorAeropuerto')}>Listar por Aeropuerto</button>
-      </nav>
-
-      {activeComponent === 'registro' && <RegistroVuelos />}
-      {activeComponent === 'listar' && <ListarVuelos />}
-      {activeComponent === 'listarPorAeropuerto' && <ListarVuelosAeropuerto />}
+      {activeComponent === 'registro' && (
+        <RegistroVuelos 
+          addFlight={addFlight} 
+          setActiveComponent={setActiveComponent} 
+        />
+      )}
+      {activeComponent === 'listarPorTerminal' && (
+        <ListarVuelosPorTerminal 
+          flights={flights} 
+          setActiveComponent={setActiveComponent} 
+        />
+      )}
+      {activeComponent === 'listarPorAeropuerto' && (
+        <ListarVuelosPorAeropuerto 
+          flights={flights} 
+          setActiveComponent={setActiveComponent} 
+        />
+      )}
     </div>
   );
 }
