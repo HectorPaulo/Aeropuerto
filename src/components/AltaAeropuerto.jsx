@@ -30,8 +30,8 @@ const AltaAeropuerto = ({ onAeropuertoAdded }) => {
     };
 
     return (
-        <div className="container">
-            <h1>Alta Aeropuerto</h1>
+        <div className="alta-aeropuerto">
+            <h1>REGISTRAR AEROPUERTOS</h1>
             <form onSubmit={handleSubmit} className="form">
                 <div className="form-group">
                     <label htmlFor="nombre">Nombre</label>
@@ -42,6 +42,7 @@ const AltaAeropuerto = ({ onAeropuertoAdded }) => {
                         value={formData.nombre}
                         onChange={handleChange}
                         className="form-control"
+                        placeholder="Escribe el nombre del aeropuerto"
                     />
                 </div>
                 <div className="form-group">
@@ -53,6 +54,7 @@ const AltaAeropuerto = ({ onAeropuertoAdded }) => {
                         value={formData.numeroPistas}
                         onChange={handleChange}
                         className="form-control"
+                        placeholder="Define el número de pistas"
                     />
                 </div>
                 <div className="form-group">
@@ -64,9 +66,10 @@ const AltaAeropuerto = ({ onAeropuertoAdded }) => {
                         value={formData.tipoAvion}
                         onChange={handleChange}
                         className="form-control"
+                        placeholder="Escribe el tipo de aviones del aeropuerto"
                     />
                 </div>
-                <button type="submit" className="btn">Enviar</button>
+                <button type="submit" className="btn">Registrar</button>
             </form>
         </div>
     );

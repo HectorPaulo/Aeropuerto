@@ -1,14 +1,15 @@
-import AeropuertoApp from "./components/AeropuertoApp"
+import React from 'react';
+import AltaAeropuerto from './components/AltaAeropuerto';
+import ListaAeropuertos from './components/ListaAeropuertos';
+import './components/Styles.css';
 
-function App() {
+const App = () => {
+    return (
+        <div className="main-container">
+            <AltaAeropuerto />
+            <ListaAeropuertos />
+        </div>
+    );
+};
 
-  return (
-    <>
-      <div>
-        <AeropuertoApp></AeropuertoApp>
-      </div>
-    </>
-  )
-}
-
-export default App
+export default App;
