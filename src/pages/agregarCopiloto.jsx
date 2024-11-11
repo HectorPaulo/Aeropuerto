@@ -151,7 +151,7 @@ export const AgregarCopiloto= () => {
                       <label>Tiempo Restante (años):</label>
                       <input
                           type="number"
-                          name="tiempoRestante"
+                          name="tiempoRestantePiloto"
                           value={copiloto.tiempoRestantePiloto}
                           onChange={handleChange}
                           min="0"
