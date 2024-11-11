@@ -15,12 +15,47 @@ export const AgregarSobrecargo = () => {
       certificados: "",
     });
 
+    const idiomasOptions = [
+      { value: 'Ingles', label: 'Inglés' },
+      { value: 'Frances', label: 'Francés' },
+      { value: 'Español', label: 'Español' },
+      { value: 'Chino', label: 'Chino' },
+      { value: 'Japones', label: 'Japonés' },
+      { value: 'Aleman', label: 'Alemán' },
+    ];
+
+    const certificadosOptions = [
+      { value: 'Paramedico', label: 'Paramédico' },
+      { value: 'AyudaEspecial', label: 'Ayuda Especial' },
+      { value: 'Veterinaria', label: 'Veterinaria' },
+      { value: 'PersonasMayores', label: 'Personas Mayores' },
+    ];
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setSobrecargo((prevState) => ({
             ...prevState,
             [name]: value
         }));
+    };
+    const handleIdiomasChange = (e) => {
+      const { value, checked } = e.target;
+      setSobrecargo((prevState) => {
+        const idiomas = checked
+          ? [...prevState.idiomas, value]
+          : prevState.idiomas.filter((idioma) => idioma !== value);
+        return { ...prevState, idiomas };
+      });
+    };
+
+    const handleCertificadosChange = (e) => {
+      const { value, checked } = e.target;
+      setSobrecargo((prevState) => {
+        const certificados = checked
+          ? [...prevState.certificados, value]
+          : prevState.certificados.filter((cert) => cert !== value);
+        return { ...prevState, certificados };
+      });
     };
 
     const handleSubmit = async (e) => {
@@ -109,57 +144,33 @@ export const AgregarSobrecargo = () => {
             <div className="form-group">
                 <div>
                 <label>Idiomas:</label>
-                <select
-                  name="idiomas"
-                  multiple
-                  value={sobrecargo.idiomas}
-                  onChange={(e) => {
-                    const options = e.target.options;
-                    const values = [];
-                    for (let i = 0; i < options.length; i++) {
-                      if (options[i].selected) {
-                        values.push(options[i].value);
-                      }
-                    }
-                    setSobrecargo({
-                      ...sobrecargo,
-                      idiomas: values,
-                    });
-                  }}
-                >
-                <option value="Ingles">Inglés</option>
-                <option value="Frances">Francés</option>
-                <option value="Español">Español</option>
-                <option value="Chino">Chino</option>
-                <option value="Japones">Japones</option>
-                <option value="Alemán">Alemán</option>
-              </select>
+                {idiomasOptions.map((option) => (
+                  <label key={option.value}>
+                    <input
+                      type="checkbox"
+                      name="idiomas"
+                      value={option.value}
+                      checked={sobrecargo.idiomas.includes(option.value)}
+                      onChange={handleIdiomasChange}
+                    />
+                    {option.label}
+                  </label>
+                ))}
                 </div>
                 <div>
                 <label>Certificados:</label>
-                  <select
-                    name="certificados"
-                    multiple
-                    value={sobrecargo.certificados}
-                    onChange={(e) => {
-                      const options = e.target.options;
-                      const values = [];
-                      for (let i = 0; i < options.length; i++) {
-                        if (options[i].selected) {
-                          values.push(options[i].value);
-                        }
-                      }
-                      setSobrecargo({
-                        ...sobrecargo,
-                        certificados: values,
-                      });
-                    }}
-                  >
-                    <option value="Paramédico">Paramédico</option>
-                    <option value="Ayuda Especial">AyudaEspecial</option>
-                    <option value="Veterinaria">Veterinaria</option>
-                    <option value="Personas Mayores">Personas Mayores</option>
-                  </select>
+                {certificadosOptions.map((option) => (
+                  <label key={option.value}>
+                    <input
+                      type="checkbox"
+                      name="certificados"
+                      value={option.value}
+                      checked={sobrecargo.certificados.includes(option.value)}
+                      onChange={handleCertificadosChange}
+                    />
+                    {option.label}
+                  </label>
+                ))}
                 </div>
                 <div>
                     <label>Antigüedad (años):</label>

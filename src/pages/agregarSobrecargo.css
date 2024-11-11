@@ -75,4 +75,22 @@
   .submit-button:hover {
     background-color: #d18c00;
   }
+  .checkbox-group {
+    margin-bottom: 1rem;
+  }
   
+  .checkbox-items {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .checkbox-item input {
+    margin-right: 0.5rem;
+  }
