@@ -16,6 +16,10 @@ function RegistroVuelos() {
   const [showListByAirport, setShowListByAirport] = useState(false); // Estado para manejar el listado por aeropuerto
   const [error, setError] = useState(null); // Estado para almacenar el mensaje de error
 
+  // Opciones de ejemplo para las listas desplegables
+  const vehicleOptions = ['Boeing 737', 'Airbus A320', 'Embraer E190'];
+  const airportOptions = ['Oaxaca', 'Veracruz', 'Tabasco'];
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFlightData({
@@ -75,33 +79,51 @@ function RegistroVuelos() {
           </label>
           <label style={styles.label}>
             Vehículo Aéreo:
-            <input
-              type="text"
+            <select
               name="vehiculoAereo"
               value={flightData.vehiculoAereo}
               onChange={handleChange}
               style={styles.input}
-            />
+            >
+              <option value="">Selecciona un vehículo aéreo</option>
+              {vehicleOptions.map((vehicle, index) => (
+                <option key={index} value={vehicle}>
+                  {vehicle}
+                </option>
+              ))}
+            </select>
           </label>
           <label style={styles.label}>
             Origen:
-            <input
-              type="text"
+            <select
               name="origen"
               value={flightData.origen}
               onChange={handleChange}
               style={styles.input}
-            />
+            >
+              <option value="">Selecciona un aeropuerto de origen</option>
+              {airportOptions.map((airport, index) => (
+                <option key={index} value={airport}>
+                  {airport}
+                </option>
+              ))}
+            </select>
           </label>
           <label style={styles.label}>
             Destino:
-            <input
-              type="text"
+            <select
               name="destino"
               value={flightData.destino}
               onChange={handleChange}
               style={styles.input}
-            />
+            >
+              <option value="">Selecciona un aeropuerto de destino</option>
+              {airportOptions.map((airport, index) => (
+                <option key={index} value={airport}>
+                  {airport}
+                </option>
+              ))}
+            </select>
           </label>
           <label style={styles.label}>
             Tripulación:
@@ -192,7 +214,7 @@ function RegistroVuelos() {
             <ul style={styles.list}>
               {Object.entries(groupFlightsByAirport()).map(([origen, flights]) => (
                 <li key={origen} style={styles.listItem}>
-                  <h4>Aeropuerto: {origen}</h4>
+                  <h4>{origen}</h4>
                   <ul>
                     {flights.map((flight, index) => (
                       <li key={index} style={styles.listItem}>
