@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API_URL = "https://aeropuertolasalle-f1af9eaa4f6d.herokuapp.com/api/tripulacion";
+const API_URL = "https://aeropuertolasalle-f1af9eaa4f6d.herokuapp.com";
 
 const TripulacionService={
     createPiloto:async (piloto) => {
         try {
-            const response = await axios.post(`${API_URL}/create/piloto`, piloto);
+            const response = await axios.post(`${API_URL}/api/tripulacion/create/piloto`, piloto);
             return response.data;
           } catch (error) {
             console.error('Error creating piloto:', error);
@@ -14,7 +14,7 @@ const TripulacionService={
     },
     createCopiloto:async (copiloto) => {
         try {
-            const response = await axios.post(`${API_URL}/create/copiloto`, copiloto);
+            const response = await axios.post(`${API_URL}/api/tripulacion/create/copiloto`, copiloto);
             return response.data;
           } catch (error) {
             console.error('Error creating copiloto:', error);
@@ -23,7 +23,7 @@ const TripulacionService={
     },
     createSobrecargo:async (sobrecargo) => {
         try {
-            const response = await axios.post(`${API_URL}/create/sobrecargo`, sobrecargo);
+            const response = await axios.post(`${API_URL}/api/tripulacion/create/sobrecargo`, sobrecargo);
             return response.data;
           } catch (error) {
             console.error('Error creating sobrecargo:', error);
@@ -32,7 +32,7 @@ const TripulacionService={
     },
     mostrarTripulacion: async () => {
       try {
-          const response = await axios.get(`${API_URL}/all`);
+          const response = await axios.get(`${API_URL}/api/tripulacion/all`);
           return response.data;
       } catch (error) {
           console.error('Error fetching tripulacion:', error);
