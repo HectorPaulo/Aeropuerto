@@ -142,36 +142,41 @@ export const AgregarSobrecargo = () => {
             {/* Sección Datos Laborales */}
             <h2>Datos Laborales</h2>
             <div className="form-group">
-                <div>
-                <label>Idiomas:</label>
-                {idiomasOptions.map((option) => (
-                  <label key={option.value}>
-                    <input
-                      type="checkbox"
-                      name="idiomas"
-                      value={option.value}
-                      checked={sobrecargo.idiomas.includes(option.value)}
-                      onChange={handleIdiomasChange}
-                    />
-                    {option.label}
-                  </label>
-                ))}
-                </div>
-                <div>
-                <label>Certificados:</label>
-                {certificadosOptions.map((option) => (
-                  <label key={option.value}>
-                    <input
-                      type="checkbox"
-                      name="certificados"
-                      value={option.value}
-                      checked={sobrecargo.certificados.includes(option.value)}
-                      onChange={handleCertificadosChange}
-                    />
-                    {option.label}
-                  </label>
-                ))}
-                </div>
+<div className="checkbox-group">
+  <label>Idiomas:</label>
+  <div className="checkbox-items">
+    {idiomasOptions.map((option) => (
+      <div key={option.value} className="checkbox-item">
+        <input
+          type="checkbox"
+          name="idiomas"
+          value={option.value}
+          checked={sobrecargo.idiomas.includes(option.value)}
+          onChange={handleIdiomasChange}
+        />
+        <span>{option.label}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<div className="checkbox-group">
+  <label>Certificados:</label>
+  <div className="checkbox-items">
+    {certificadosOptions.map((option) => (
+      <div key={option.value} className="checkbox-item">
+        <input
+          type="checkbox"
+          name="certificados"
+          value={option.value}
+          checked={sobrecargo.certificados.includes(option.value)}
+          onChange={handleCertificadosChange}
+        />
+        <span>{option.label}</span>
+      </div>
+    ))}
+  </div>
+</div>
                 <div>
                     <label>Antigüedad (años):</label>
                     <input
