@@ -122,32 +122,33 @@ export const AgregarPiloto = () => {
 
                     <div>
                         <label>Salud Mental:</label>
-                        <input
-                            type="text"
-                            name="saludMental"
-                            value={piloto.saludMental}
-                            onChange={handleChange}
-                        />
+                        <select name="saludMental" value={piloto.saludMental} onChange={handleChange}>
+                            <option value="">Seleccione</option>
+                            <option value="Buena">Buena</option>
+                            <option value="Intermedia">Intermedia</option>
+                            <option value="Mala">Mala</option>
+                        </select>
                     </div>
 
                     <div>
                         <label>Rango:</label>
-                        <input
-                            type="text"
-                            name="rango"
-                            value={piloto.rango}
-                            onChange={handleChange}
-                        />
+                        <select name="rango" value={piloto.rango} onChange={handleChange}>
+                            <option value="">Seleccione</option>
+                            <option value="Un galon">Un galón</option>
+                            <option value="Dos galones">Dos galones</option>
+                            <option value="Tres galones">Tres galones</option>
+                        </select>
                     </div>
 
                     <div>
                         <label>Licencia:</label>
-                        <input
-                            type="text"
-                            name="licencia"
-                            value={piloto.licencia}
-                            onChange={handleChange}
-                        />
+                        <select name="licencia" value={piloto.licencia} onChange={handleChange}>
+                            <option value="">Seleccione</option>
+                            <option value="LAPL"> LAPL</option>
+                            <option value="PPL(A)">PPL(A)</option>
+                            <option value="CPL(A)">CPL(A)</option>
+                            <option value="ATPL(A)">ATPL(A)</option>
+                        </select>
                     </div>
 
                     <div>
