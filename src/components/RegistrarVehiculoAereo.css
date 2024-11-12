@@ -1,0 +1,68 @@
+/* Formulario de registro */
+form {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: white; /* Fondo blanco para contraste */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #0a9396; /* Color de título coherente */
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas */
+  gap: 15px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  color: #005f73; /* Color de texto */
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  margin-top: 4px;
+  font-size: 1em;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: #ee9b00; /* Color de enfoque */
+  box-shadow: 0px 0px 4px rgba(238, 155, 0, 0.5); /* Sombra del mismo tono */
+}
+
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+  background-color: #005f73; /* Botón primario */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+  grid-column: span 2; /* Botón ocupa ambas columnas */
+}
+
+button[type="submit"]:hover {
+  background-color: #0a9396; /* Cambio al pasar */
+}
