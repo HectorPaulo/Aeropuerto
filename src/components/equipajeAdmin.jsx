@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-    const EquipajeAdmin = ({ passengers }) => {
+const EquipajeAdmin = ({ passengers }) => {
     const [selectedPassenger, setSelectedPassenger] = useState('');
     const [equipajeList, setEquipajeList] = useState([]);
 
@@ -10,19 +10,16 @@ import React, { useState } from 'react';
         return;
         }
         // Simula búsqueda de equipaje
-        alert(`Buscando equipaje del pasajero: ${selectedPassenger}`);
         setEquipajeList([
-        `Equipaje de mano para ${selectedPassenger}`,
-        `Equipaje documentado para ${selectedPassenger}`,
+        { tipo: 'Equipaje de mano', peso: 5, altura: 40, ancho: 20 },
+        { tipo: 'Equipaje documentado', peso: 23, altura: 70, ancho: 50 },
         ]);
     };
 
-    const handleListar = () => {
-        if (equipajeList.length === 0) {
-        alert('No hay equipaje registrado para este pasajero.');
-        } else {
-        alert(`Listando equipaje para ${selectedPassenger}`);
-        }
+    const handleEdit = (index, field, value) => {
+        const updatedList = [...equipajeList];
+        updatedList[index][field] = value;
+        setEquipajeList(updatedList);
     };
 
     return (
@@ -53,21 +50,54 @@ import React, { useState } from 'react';
             <button type="button" onClick={handleBuscar} style={styles.button}>
                 Buscar Equipaje
             </button>
-            <button type="button" onClick={handleListar} style={styles.button}>
-                Listar Equipaje
-            </button>
             </div>
 
-            <div style={styles.listContainer}>
-            <h3>Equipaje Registrado:</h3>
-            <ul style={styles.list}>
-                {equipajeList.length === 0 ? (
-                <li>No hay equipaje registrado.</li>
-                ) : (
-                equipajeList.map((equipaje, index) => <li key={index}>{equipaje}</li>)
-                )}
-            </ul>
+            {equipajeList.length > 0 && (
+            <div style={styles.tableContainer}>
+                <h3>Equipaje Registrado</h3>
+                <table style={styles.table}>
+                <thead>
+                    <tr>
+                    <th>Tipo de Equipaje</th>
+                    <th>Peso (kg)</th>
+                    <th>Altura (cm)</th>
+                    <th>Ancho (cm)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {equipajeList.map((equipaje, index) => (
+                    <tr key={index}>
+                        <td>{equipaje.tipo}</td>
+                        <td>
+                        <input
+                            type="number"
+                            value={equipaje.peso}
+                            onChange={(e) => handleEdit(index, 'peso', e.target.value)}
+                            style={styles.input}
+                        />
+                        </td>
+                        <td>
+                        <input
+                            type="number"
+                            value={equipaje.altura}
+                            onChange={(e) => handleEdit(index, 'altura', e.target.value)}
+                            style={styles.input}
+                        />
+                        </td>
+                        <td>
+                        <input
+                            type="number"
+                            value={equipaje.ancho}
+                            onChange={(e) => handleEdit(index, 'ancho', e.target.value)}
+                            style={styles.input}
+                        />
+                        </td>
+                    </tr>
+                    ))}
+                </tbody>
+                </table>
             </div>
+            )}
         </form>
         </div>
     );
@@ -125,13 +155,31 @@ import React, { useState } from 'react';
         borderRadius: '4px',
         cursor: 'pointer',
     },
-    listContainer: {
+    tableContainer: {
         marginTop: '20px',
+        overflowX: 'auto',
     },
-    list: {
-        listStyleType: 'none',
-        padding: 0,
-        marginTop: '10px',
+    table: {
+        width: '100%',
+        borderCollapse: 'collapse',
+        marginTop: '15px',
+    },
+    input: {
+        width: '100%',
+        padding: '5px',
+        fontSize: '14px',
+        border: '1px solid #ddd',
+        borderRadius: '4px',
+    },
+    th: {
+        textAlign: 'left',
+        padding: '10px',
+        borderBottom: '1px solid #ddd',
+    },
+    td: {
+        textAlign: 'left',
+        padding: '10px',
+        borderBottom: '1px solid #ddd',
     },
 };
 
