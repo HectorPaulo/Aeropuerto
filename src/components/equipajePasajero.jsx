@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 
-    const EquipajePasajero = () => {
+    const EquipajePasajero = ({ passengers }) => {
+    const [selectedPassenger, setSelectedPassenger] = useState('');
     const [equipaje, setEquipaje] = useState('');
     const [peso, setPeso] = useState('');
     const [altura, setAltura] = useState('');
     const [ancho, setAncho] = useState('');
 
     const handleAgregar = () => {
-        alert('Equipaje agregado correctamente.');
+        if (!selectedPassenger) {
+        alert('Selecciona un pasajero primero.');
+        return;
+        }
+        alert(`Equipaje agregado correctamente para el pasajero: ${selectedPassenger}`);
     };
 
     return (
@@ -18,6 +23,22 @@ import React, { useState } from 'react';
         </div>
 
         <form style={styles.form}>
+            <label style={styles.label}>
+            Seleccionar Pasajero:
+            <select
+                value={selectedPassenger}
+                onChange={(e) => setSelectedPassenger(e.target.value)}
+                style={styles.select}
+            >
+                <option value="">Selecciona un pasajero</option>
+                {passengers.map((passenger) => (
+                <option key={passenger.id} value={passenger.nombre}>
+                    {passenger.nombre} (ID: {passenger.id})
+                </option>
+                ))}
+            </select>
+            </label>
+
             <label style={styles.label}>
             Peso (kg):
             <input

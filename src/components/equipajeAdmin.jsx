@@ -1,15 +1,28 @@
 import React, { useState } from 'react';
 
-    const EquipajeAdmin = () => {
-    const [idPasajero, setIdPasajero] = useState('');
+    const EquipajeAdmin = ({ passengers }) => {
+    const [selectedPassenger, setSelectedPassenger] = useState('');
     const [equipajeList, setEquipajeList] = useState([]);
 
     const handleBuscar = () => {
-        alert('Buscando equipaje...');
+        if (!selectedPassenger) {
+        alert('Selecciona un pasajero para buscar.');
+        return;
+        }
+        // Simula búsqueda de equipaje
+        alert(`Buscando equipaje del pasajero: ${selectedPassenger}`);
+        setEquipajeList([
+        `Equipaje de mano para ${selectedPassenger}`,
+        `Equipaje documentado para ${selectedPassenger}`,
+        ]);
     };
 
     const handleListar = () => {
-        alert('Listando equipaje...');
+        if (equipajeList.length === 0) {
+        alert('No hay equipaje registrado para este pasajero.');
+        } else {
+        alert(`Listando equipaje para ${selectedPassenger}`);
+        }
     };
 
     return (
@@ -21,24 +34,32 @@ import React, { useState } from 'react';
 
         <form style={styles.form}>
             <label style={styles.label}>
-            ID Pasajero:
-            <div style={styles.inputGroup}>
-                <input
-                type="text"
-                value={idPasajero}
-                onChange={(e) => setIdPasajero(e.target.value)}
-                style={styles.input}
-                />
-                <button type="button" onClick={handleBuscar} style={styles.button}>
-                Buscar
-                </button>
-            </div>
+            Seleccionar Pasajero:
+            <select
+                value={selectedPassenger}
+                onChange={(e) => setSelectedPassenger(e.target.value)}
+                style={styles.select}
+            >
+                <option value="">Selecciona un pasajero</option>
+                {passengers.map((passenger) => (
+                <option key={passenger.id} value={passenger.nombre}>
+                    {passenger.nombre} (ID: {passenger.id})
+                </option>
+                ))}
+            </select>
             </label>
 
-            <div style={styles.listContainer}>
-            <button type="button" onClick={handleListar} style={styles.button}>
-                Listar equipaje
+            <div style={styles.buttons}>
+            <button type="button" onClick={handleBuscar} style={styles.button}>
+                Buscar Equipaje
             </button>
+            <button type="button" onClick={handleListar} style={styles.button}>
+                Listar Equipaje
+            </button>
+            </div>
+
+            <div style={styles.listContainer}>
+            <h3>Equipaje Registrado:</h3>
             <ul style={styles.list}>
                 {equipajeList.length === 0 ? (
                 <li>No hay equipaje registrado.</li>
@@ -83,25 +104,17 @@ import React, { useState } from 'react';
         fontSize: '16px',
         color: '#555',
     },
-    inputGroup: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
-    },
-    input: {
+    select: {
         padding: '10px',
         fontSize: '14px',
         border: '1px solid #ddd',
         borderRadius: '4px',
-        flex: 1,
+        marginTop: '5px',
     },
-    listContainer: {
-        marginTop: '20px',
-    },
-    list: {
-        listStyleType: 'none',
-        padding: 0,
-        marginTop: '10px',
+    buttons: {
+        display: 'flex',
+        gap: '10px',
+        marginTop: '15px',
     },
     button: {
         padding: '10px 20px',
@@ -111,6 +124,14 @@ import React, { useState } from 'react';
         border: 'none',
         borderRadius: '4px',
         cursor: 'pointer',
+    },
+    listContainer: {
+        marginTop: '20px',
+    },
+    list: {
+        listStyleType: 'none',
+        padding: 0,
+        marginTop: '10px',
     },
 };
 

@@ -1,21 +1,20 @@
 import { useState } from 'react';
-import RegistroVuelos from './registroVuelos';
-import ListarVuelosPorTerminal from './ListarVuelosPorTerminal';
-import ListarVuelosPorAeropuerto from './ListarVuelosPorAeropuerto';
 import EquipajePasajero from './equipajePasajero';
 import EquipajeAdmin from './equipajeAdmin';
 
 function VuelosApp() {
-  const [activeComponent, setActiveComponent] = useState('registro');
-  const [flights, setFlights] = useState([]); // Estado para almacenar los vuelos registrados
+  const [activeComponent, setActiveComponent] = useState('menu'); // Estado para manejar la navegación
 
-  const addFlight = (flightData) => {
-    setFlights([...flights, flightData]); // Añadir un nuevo vuelo a la lista de vuelos
-  };
+  // Ejemplo de pasajeros
+  const [passengers] = useState([
+    { id: 'P001', nombre: 'Juan Pérez' },
+    { id: 'P002', nombre: 'María López' },
+    { id: 'P003', nombre: 'Carlos Sánchez' },
+  ]);
 
   return (
     <div style={styles.container}>
-      {activeComponent === 'registro' && (
+      {activeComponent === 'menu' && (
         <div style={styles.buttonContainer}>
           <button
             style={styles.button}
@@ -31,21 +30,27 @@ function VuelosApp() {
           </button>
         </div>
       )}
-
-      {activeComponent === 'registro' && (
-        <RegistroVuelos addFlight={addFlight} setActiveComponent={setActiveComponent} />
-      )}
-      {activeComponent === 'listarPorTerminal' && (
-        <ListarVuelosPorTerminal flights={flights} setActiveComponent={setActiveComponent} />
-      )}
-      {activeComponent === 'listarPorAeropuerto' && (
-        <ListarVuelosPorAeropuerto flights={flights} setActiveComponent={setActiveComponent} />
-      )}
       {activeComponent === 'equipajePasajero' && (
-        <EquipajePasajero />
+        <div>
+          <button
+            style={styles.backButton}
+            onClick={() => setActiveComponent('menu')}
+          >
+            ⬅ Regresar
+          </button>
+          <EquipajePasajero passengers={passengers} />
+        </div>
       )}
       {activeComponent === 'equipajeAdmin' && (
-        <EquipajeAdmin />
+        <div>
+          <button
+            style={styles.backButton}
+            onClick={() => setActiveComponent('menu')}
+          >
+            ⬅ Regresar
+          </button>
+          <EquipajeAdmin passengers={passengers} />
+        </div>
       )}
     </div>
   );
@@ -72,6 +77,16 @@ const styles = {
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
+  },
+  backButton: {
+    padding: '10px 20px',
+    fontSize: '16px',
+    color: '#fff',
+    backgroundColor: '#6c757d',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    marginBottom: '20px',
   },
 };
 
