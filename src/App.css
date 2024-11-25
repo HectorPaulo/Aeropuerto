@@ -1,0 +1,40 @@
+html, body {
+  height: 100%;
+}
+
+/* Centrar el contenedor de los botones en la página */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Estilos para los botones */
+  .btn {
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  .btn:focus {
+    outline: none;
+  }
+  
+  .btn:active {
+    background-color: #004085;
+    transform: scale(0.98);
+  }
