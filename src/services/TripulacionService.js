@@ -38,7 +38,19 @@ const TripulacionService={
           console.error('Error fetching tripulacion:', error);
           throw error;
       }
-  }
+  },
+
+  eliminarMiembro: async (id) => {
+    try {
+        const response = await axios.delete(`${API_URL}/api/tripulacion/delete/${id}`);
+        window.location.reload();
+        return response.data;
+    } catch (error) {
+        console.error("Error deleting miembro:", error);
+        throw error;
+    }
+},
+
 };
 export default TripulacionService;
 

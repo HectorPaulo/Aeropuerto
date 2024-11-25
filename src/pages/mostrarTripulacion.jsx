@@ -33,11 +33,28 @@ export const MostrarTripulacion = () => {
         fetchData();
     }, []);
 
+    const eliminarMiembro = async (id, tipo) => {
+        try {
+            // Llama al servicio para eliminar el miembro de la tripulación
+            await TripulacionService.eliminarMiembro(id);
+
+            // Actualiza el estado local
+            setTripulacion(prevState => ({
+                ...prevState,
+                [tipo]: prevState[tipo].filter(miembro => miembro.id !== id)
+            }));
+            alert("Miembro eliminado correctamente");
+        } catch (error) {
+            console.error("Error al eliminar el miembro:", error);
+            alert("Hubo un error al eliminar el miembro");
+        }
+    };
+
     const Card = ({ miembro, tipo }) => (
         <div className="card">
             <h3>{miembro.nombre} {miembro.apellido}</h3>
             <p><strong>Género:</strong> {miembro.genero || "No especificado"}</p>
-            <p><strong>Fecha de nacimiento:</strong> {miembro.fechaNacimiento || "No especificada"}</p>
+            <p><strong>Fecha de nacimiento:</strong> {miembro.fechaNac || "No especificada"}</p>
             <h4>Datos laborales</h4>
             {tipo === "sobrecargo" && (
                 <>
@@ -55,7 +72,19 @@ export const MostrarTripulacion = () => {
             <p><strong>Turno:</strong> {miembro.turno}</p>
             <div className="buttons">
                 <button className="btn btn-update">Actualizar</button>
-                <button className="btn btn-delete">Eliminar</button>
+
+                <button
+                    className="btn btn-delete"
+                    onClick={() => {
+                        console.log("ID del miembro:", miembro.id);
+                        eliminarMiembro(miembro.idTripulacion, tipo);
+                    }}
+                >
+    Eliminar
+</button>
+
+
+                
             </div>
         </div>
     );
@@ -67,21 +96,21 @@ export const MostrarTripulacion = () => {
             <h2>Pilotos</h2>
             <div className="grid-container">
                 {tripulacion.pilotos.map((piloto, index) => (
-                    <Card key={index} miembro={piloto} tipo="piloto" />
+                    <Card key={index} miembro={piloto} tipo="pilotos" />
                 ))}
             </div>
 
             <h2>Copilotos</h2>
             <div className="grid-container">
                 {tripulacion.copilotos.map((copiloto, index) => (
-                    <Card key={index} miembro={copiloto} tipo="copiloto" />
+                    <Card key={index} miembro={copiloto} tipo="copilotos" />
                 ))}
             </div>
 
             <h2>Sobrecargos</h2>
             <div className="grid-container">
                 {tripulacion.sobrecargos.map((sobrecargo, index) => (
-                    <Card key={index} miembro={sobrecargo} tipo="sobrecargo" />
+                    <Card key={index} miembro={sobrecargo} tipo="sobrecargos" />
                 ))}
             </div>
         </div>
