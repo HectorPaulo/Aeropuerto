@@ -23,7 +23,7 @@ h1, h2 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: stretch; /* Cambiar a stretch para permitir alinear el texto a la izquierda */
 }
 
 .card h3 {
@@ -31,6 +31,7 @@ h1, h2 {
     color: #00476b;
     font-size: 20px;
     font-weight: bold;
+    text-align: left; /* Alinea el texto a la izquierda */
 }
 
 .card h4 {
@@ -38,17 +39,21 @@ h1, h2 {
     color: #0288d1;
     font-size: 18px;
     font-weight: bold;
+    text-align: left; /* Alinea el texto a la izquierda */
 }
 
 .card p {
     margin: 5px 0;
     font-size: 14px;
     color: #333;
+    text-align: left; /* Alinea el texto a la izquierda */
 }
 
 .buttons {
     margin-top: 20px;
     display: flex;
+    justify-content: center; /* Centramos los botones horizontalmente */
+    width: 100%; /* Aseguramos que el contenedor ocupe todo el ancho */
     gap: 10px;
 }
 

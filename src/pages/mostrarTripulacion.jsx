@@ -70,9 +70,8 @@ export const MostrarTripulacion = () => {
                 </>
             )}
             <p><strong>Turno:</strong> {miembro.turno}</p>
+            
             <div className="buttons">
-                <button className="btn btn-update">Actualizar</button>
-
                 <button
                     className="btn btn-delete"
                     onClick={() => {
